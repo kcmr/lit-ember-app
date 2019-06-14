@@ -32,12 +32,17 @@ class Component extends LitElement {
       p {
         margin-top: 0;
       }
+
+      img {
+        width: 200px;
+      }
     `;
   }
 
   render() {
     return html`
       <h1>${this.greeting}</h1>
+      <img src="images/tomster.png" alt="">
       <p>Times clicked: ${this.counter}</p>
       <wired-button @click=${this._increaseCounter}>Click me!</wired-button>
     `;
