@@ -1,10 +1,47 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const Rollup = require("broccoli-rollup");
+const babel = require("rollup-plugin-babel");
+const resolver = require('rollup-plugin-node-resolve');
+const commonjs = require('rollup-plugin-commonjs');
+const path = require('path');
 
 module.exports = function(defaults) {
   let app = new EmberApp(defaults, {
-    // Add options here
+  });
+
+  const litElementsPath = path.join(app.project.root, 'app/lit-elements');
+  const entryPoint = path.join(app.project.root, 'app/lit-elements-imports.js');
+  const litElements = new Rollup(litElementsPath, {
+    inputFiles: ['**/*.js'],
+    annotation: 'Bundle Lit Elements',
+    rollup: {
+      input: entryPoint,
+      output: {
+        file: 'assets/lit-elements-bundle.js',
+        format: 'iife',
+        sourcemap: true
+      },
+      plugins: [
+        resolver(),
+        commonjs({
+          include: 'node_modules/**'
+        }),
+        babel({
+          babelrc: false,
+          presets: [
+            [
+              '@babel/env',
+              {
+                modules: false,
+                targets: app.targets
+              }
+            ]
+          ]
+        })
+      ]
+    }
   });
 
   // Use `app.import` to add additional libraries to the generated
@@ -20,5 +57,5 @@ module.exports = function(defaults) {
   // please specify an object with the list of modules as keys
   // along with the exports of each module as its value.
 
-  return app.toTree();
+  return app.toTree(litElements);
 };
