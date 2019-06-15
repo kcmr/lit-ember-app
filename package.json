@@ -58,7 +58,13 @@
     "node": "6.* || 8.* || >= 10.*"
   },
   "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.2.10",
     "lit-element": "^2.2.0",
     "wired-button": "^1.0.0"
+  },
+  "ember-addon": {
+    "paths": [
+      "lib/rollup-bundler"
+    ]
   }
 }
