@@ -5,6 +5,7 @@
 - [x] Automatically include babel-polyfill 
 - [ ] Generate two bundles (esmodules and legacy)
 - [x] Use content hooks to write the script tags in index.html
+- [ ] Allow to config paths for LitElements imports and lit-elements
 
 ---
 
