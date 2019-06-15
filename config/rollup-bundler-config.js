@@ -28,7 +28,7 @@ module.exports = function(app, {
               '@babel/env',
               {
                 modules: false,
-                targets: app.targets
+                targets: app.project.targets
               }
             ]
           ]
