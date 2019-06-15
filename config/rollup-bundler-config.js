@@ -18,18 +18,16 @@ module.exports = function(app, {
       },
       plugins: [
         resolver(),
-        commonjs({
-          include: 'node_modules/**'
-        }),
+        commonjs(),
         babel({
           babelrc: false,
+          runtimeHelpers: true,
           presets: [
             [
               '@babel/env',
               {
-                useBuiltIns: 'entry',
                 modules: false,
-                targets: app.project.targets
+                targets: app.project.targets,
               }
             ]
           ]
