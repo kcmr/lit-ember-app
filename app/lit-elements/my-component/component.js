@@ -6,7 +6,8 @@ class Component extends LitElement {
     return {
       greeting: { type: String },
       counter: { type: Number },
-      otra: { type: String }
+      otra: { type: String },
+      imgSrc: { type: String, attribute: 'img-src' }
     };
   }
 
@@ -40,7 +41,7 @@ class Component extends LitElement {
   render() {
     return html`
       <h1>${this.greeting}</h1>
-      <img src="images/tomster.png" alt="">
+      <img src="${this.imgSrc}" alt="">
       <p>Times clicked: ${this.counter}</p>
       <wired-button @click=${this._increaseCounter}>Click me!</wired-button>
       <p>${this.otra}</p>
