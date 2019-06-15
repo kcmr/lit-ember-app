@@ -5,14 +5,16 @@ class Component extends LitElement {
   static get properties() {
     return {
       greeting: { type: String },
-      counter: { type: Number }
+      counter: { type: Number },
+      otra: { type: String }
     };
   }
 
   constructor() {
     super();
-    this.greeting = 'Hola mundo';
+    this.greeting = 'Hello World';
     this.counter = 0;
+    this.otra = `I'm a second paragraph`;
   }
 
   static get styles() {
@@ -29,10 +31,6 @@ class Component extends LitElement {
         font-size: 26px;
       }
 
-      p {
-        margin-top: 0;
-      }
-
       img {
         width: 200px;
       }
@@ -45,6 +43,7 @@ class Component extends LitElement {
       <img src="images/tomster.png" alt="">
       <p>Times clicked: ${this.counter}</p>
       <wired-button @click=${this._increaseCounter}>Click me!</wired-button>
+      <p>${this.otra}</p>
     `;
   }
 

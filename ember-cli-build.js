@@ -1,61 +1,31 @@
 'use strict';
 
 const EmberApp = require('ember-cli/lib/broccoli/ember-app');
+const Funnel = require('broccoli-funnel');
+const MergeTrees = require('broccoli-merge-trees');
 const Rollup = require("broccoli-rollup");
-const babel = require("rollup-plugin-babel");
-const resolver = require('rollup-plugin-node-resolve');
-const commonjs = require('rollup-plugin-commonjs');
-const path = require('path');
+const rollupConfig = require('./config/rollup-bundler-config');
 
 module.exports = function(defaults) {
-  let app = new EmberApp(defaults, {
+  const app = new EmberApp(defaults);
+
+  const litElementsFunnel = new Funnel('app/lit-elements', {
+    annotation: 'Lit Elements folder',
+    include: ['**/*.js'],
+    destDir: 'lit-elements'
   });
 
-  const litElementsPath = path.join(app.project.root, 'app/lit-elements');
-  const entryPoint = path.join(app.project.root, 'app/lit-elements-imports.js');
-  const litElements = new Rollup(litElementsPath, {
-    inputFiles: ['**/*.js'],
-    annotation: 'Bundle Lit Elements',
-    rollup: {
-      input: entryPoint,
-      output: {
-        file: 'assets/lit-elements-bundle.js',
-        format: 'iife',
-        sourcemap: true
-      },
-      plugins: [
-        resolver(),
-        commonjs({
-          include: 'node_modules/**'
-        }),
-        babel({
-          babelrc: false,
-          presets: [
-            [
-              '@babel/env',
-              {
-                modules: false,
-                targets: app.targets
-              }
-            ]
-          ]
-        })
-      ]
-    }
+  const entryPointFunnel = new Funnel('app', {
+    annotation: 'Rollup entry point',
+    files: ['lit-elements-imports.js']
   });
 
-  // Use `app.import` to add additional libraries to the generated
-  // output files.
-  //
-  // If you need to use different assets in different
-  // environments, specify an object as the first parameter. That
-  // object's keys should be the environment name and the values
-  // should be the asset to use in that environment.
-  //
-  // If the library that you are including contains AMD or ES6
-  // modules that you would like to import into your application
-  // please specify an object with the list of modules as keys
-  // along with the exports of each module as its value.
+  const mergedTree = MergeTrees([
+    litElementsFunnel,
+    entryPointFunnel
+  ]);
 
-  return app.toTree(litElements);
+  const bundle = new Rollup(mergedTree, rollupConfig(app));
+
+  return new MergeTrees([bundle, app.toTree()]);
 };
