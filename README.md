@@ -7,6 +7,7 @@
 - [x] Use content hooks to write the script tags in index.html
 - [x] Allow to config paths for LitElements imports and lit-elements
 - [ ] Allow to minify the bundle 
+- [ ] Ensure webcomponentsjs is installed as dependency
 
 ---
 
