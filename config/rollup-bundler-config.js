@@ -27,6 +27,7 @@ module.exports = function(app, {
             [
               '@babel/env',
               {
+                useBuiltIns: 'entry',
                 modules: false,
                 targets: app.project.targets
               }
