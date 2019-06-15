@@ -2,7 +2,7 @@
 
 ## ToDo
 
-- [ ] Automatically include babel-polyfill 
+- [x] Automatically include babel-polyfill 
 - [ ] Generate two bundles (esmodules and legacy)
 - [ ] Use content hooks to write the script tags in index.html
 
