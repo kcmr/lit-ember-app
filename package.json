@@ -65,7 +65,7 @@
   },
   "ember-addon": {
     "paths": [
-      "lib/rollup-bundler"
+      "lib/lit-element-bundler"
     ]
   }
 }
