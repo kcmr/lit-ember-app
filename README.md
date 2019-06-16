@@ -8,6 +8,7 @@
 - [x] Allow to config paths for LitElements imports and lit-elements
 - [x] Allow to minify the bundle 
 - [ ] Ensure webcomponentsjs is installed as dependency
+- [ ] Enable treeshaking
 
 ---
 
